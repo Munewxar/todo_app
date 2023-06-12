@@ -1,0 +1,8 @@
+<ul>
+    {% for key, values in tasks_by_day.items %}
+        <p>{{key}}</p>
+        {% for v in values %}   
+            <li>{{ v.task_text }}</li>
+        {% endfor %}
+    {% endfor %}
+</ul>
