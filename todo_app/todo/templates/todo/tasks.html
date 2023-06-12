@@ -1,3 +1,8 @@
+{% extends 'todo/base.html' %}
+
+{% block page_header %}{% endblock page_header %}
+
+{% block content %}
 <ul>
     {% for key, values in tasks_by_day.items %}
         <p>{{key}}</p>
@@ -6,3 +11,4 @@
         {% endfor %}
     {% endfor %}
 </ul>
+{% endblock content %}
