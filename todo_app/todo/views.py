@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from .models import Task
+from .forms import TaskForm
 
 
 # Create your views here.
@@ -46,7 +48,20 @@ def tasks(request):
 
 
 def new_task(request):
-    return render(request, "todo/new_task.html")
+    if request.method != "POST":
+        form = TaskForm()
+    else:
+        form = TaskForm(data=request.POST)
+
+        if form.is_valid():
+            new_task = form.save(commit=False)
+            new_task.owner = request.user
+            new_task.save()
+
+            return redirect("todo:tasks")
+        
+    context = {"form" : form}
+    return render(request, "todo/new_task.html", context)
 
 
 def login(request):
