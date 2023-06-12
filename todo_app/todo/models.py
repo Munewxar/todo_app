@@ -38,7 +38,9 @@ class Task(models.Model):
     current_day_index = dt.weekday()
     default_day = DAYS_OF_THE_WEEK[current_day_index]
 
-    day_of_the_week = models.CharField(max_length=10, choices=DAY_OF_THE_WEEK_CHOICES, default=default_day)
+    day_of_the_week = models.CharField(
+        max_length=10, choices=DAY_OF_THE_WEEK_CHOICES, default=default_day
+    )
 
     status = models.CharField(
         max_length=2, choices=STATUS_CHOICES, default=NOT_COMPLETED
@@ -48,6 +50,8 @@ class Task(models.Model):
 
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
-
     def __str__(self) -> str:
+        if len(self.task_text) > 50:
+            return f"{self.task_text[:50]}..."
+
         return self.task_text
