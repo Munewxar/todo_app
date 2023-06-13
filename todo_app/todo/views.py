@@ -13,7 +13,7 @@ def index(request):
 
 # TODO: refactor
 def tasks(request):
-    tasks = Task.objects.filter(owner=request.user.id, status=Task.NOT_COMPLETED)
+    tasks = Task.objects.filter(owner=request.user.id)
 
     tasks_by_day = {}
     for task in tasks:
