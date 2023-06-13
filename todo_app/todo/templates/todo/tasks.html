@@ -1,13 +1,33 @@
 {% extends 'todo/base.html' %}
-
+{% load bootstrap_icons %}
+{% load todo_extras %}
 
 {% block content %}
-<ul>
-    {% for key, values in tasks_by_day.items %}
-        <p>{{key}}</p>
-        {% for v in values %}   
-            <li>{{ v.task_text }}</li>
-        {% endfor %}
+    {% for day, tasks in tasks_by_day.items %}
+        <div class="row">
+            <div class="col-8">
+                <h5 class="bg-secondary p-2 mv-2 text-light">{{ day }}</h5>
+            </div>
+        </div>
+        <div class="mb-2">
+            {% for task in tasks %}
+                <div class="row p-1">
+                    <div class="col-8">
+                        <div class="pl-3">
+                            {% if task.status|is_completed %}
+                                <span class="mr-1">{% bs_icon 'check-square' extra_classes="bi-valign-default" %}</span>
+                                <span class="text-muted">{{ task }}</span>
+                            {% else %}
+                                <span class="mr-1">{% bs_icon 'square' extra_classes="bi-valign-default" %}</span>
+                                <span>{{ task }}</span>
+                            {% endif %}
+
+                            <!-- mr 3 or 4 ??? -->
+                            <span class="mr-3 float-right">{% bs_icon 'trash' color='red' extra_classes="bi-valign-default" %}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     {% endfor %}
-</ul>
 {% endblock content %}
