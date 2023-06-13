@@ -13,7 +13,7 @@ def index(request):
 
 # TODO: refactor
 def tasks(request):
-    tasks = Task.objects.filter(owner=request.user.id)
+    tasks = Task.objects.filter(owner=request.user.id, status=Task.NOT_COMPLETED)
 
     tasks_by_day = {}
     for task in tasks:
@@ -22,8 +22,6 @@ def tasks(request):
         else:
             tasks_by_day[task.day_of_the_week] = []
             tasks_by_day[task.day_of_the_week].append(task)
-
-    print(f"not sorted : {tasks_by_day}")
 
     days_of_the_week = Task.DAYS_OF_THE_WEEK
     current_day_index = Task.current_day_index
@@ -42,8 +40,6 @@ def tasks(request):
         i += 1
         counter += 1
 
-    print(f"sorted : {sorted_tasks_by_day}")
-
     return render(request, "todo/tasks.html", {"tasks_by_day": sorted_tasks_by_day})
 
 
@@ -56,6 +52,7 @@ def new_task(request):
         if form.is_valid():
             new_task = form.save(commit=False)
             new_task.owner = request.user
+            new_task.status = Task.NOT_COMPLETED
             new_task.save()
 
             return redirect("todo:tasks")
