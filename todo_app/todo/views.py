@@ -1,12 +1,11 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Task
 from .forms import TaskForm
 
+# import time
 
-# Create your views here.
+
 def index(request):
     return render(request, "todo/index.html")
 
@@ -16,12 +15,38 @@ def tasks(request):
     tasks = Task.objects.filter(owner=request.user.id)
 
     tasks_by_day = {}
+    # start = time.time()
     for task in tasks:
+        print(task)
         if task.day_of_the_week in tasks_by_day:
             tasks_by_day[task.day_of_the_week].append(task)
         else:
             tasks_by_day[task.day_of_the_week] = []
             tasks_by_day[task.day_of_the_week].append(task)
+
+    # end = time.time()
+    # print(end - start)
+
+
+    # tasks_by_day = {
+    #     "MONDAY" : [tasks[0], tasks[9]],
+    #     "TUESDAY" : [tasks[1], tasks[10]],
+    #     "WEDNESDAY": [tasks[2], tasks[11]],
+    #     "THURSDAY": [tasks[3]],
+    #     "FRIDAY": [tasks[4]],
+    #     "SATURDAY": [tasks[5], tasks[6]],
+    #     "SUNDAY": [tasks[7], tasks[8]]
+    # }
+
+    # tasks_by_day = {
+    #     # "MONDAY" : [tasks[0]],
+    #     # "TUESDAY" : [tasks[1]],
+    #     # "WEDNESDAY": [tasks[2]],
+    #     # "THURSDAY": [tasks[3]],
+    #     # "FRIDAY": [tasks[4]],
+    #     # "SATURDAY": [tasks[5]],
+    #     # "SUNDAY": [tasks[7]]
+    # }
 
     days_of_the_week = Task.DAYS_OF_THE_WEEK
     current_day_index = Task.current_day_index
@@ -61,5 +86,20 @@ def new_task(request):
     return render(request, "todo/new_task.html", context)
 
 
-def login(request):
-    pass
+def complete_task(request, task_id):
+    print(f"called COMPLETE_TASK with task id: {task_id}")
+
+    task = get_object_or_404(Task, id=task_id)
+    task.status = Task.COMPLETED
+    task.save()
+
+    return redirect("todo:tasks")
+
+
+def delete_task(request, task_id):
+    print(f"called DELETE_TASK with task id: {task_id}")
+
+    task = get_object_or_404(Task, id=task_id)
+    task.delete()
+
+    return redirect("todo:tasks")
