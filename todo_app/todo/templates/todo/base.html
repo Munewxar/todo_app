@@ -51,14 +51,14 @@
             <span class="navbar-text mr-3">Hello, {{ user.username }}.</span>
           </li>
           <li class="nav-item hover-color">
-            <a class="nav-link" href="{% url 'todo:logout' %}"> Log out </a>
+            <a class="nav-link" href="{% url 'users:logout' %}"> Log out </a>
           </li>
           {% else %}
           <li class="nav-item hover-color">
-            <a class="nav-link" href="{% url 'todo:register' %}"> Register </a>
+            <a class="nav-link" href="{% url 'users:register' %}"> Register </a>
           </li>
           <li class="nav-item hover-color">
-            <a class="nav-link" href="{% url 'todo:login' %}"> Log in </a>
+            <a class="nav-link" href="{% url 'users:login' %}"> Log in </a>
           </li>
         </ul>
         {% endif %}
