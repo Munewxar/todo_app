@@ -27,15 +27,24 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
 
 # Application definition
 
 INSTALLED_APPS = [
+    # my apps
     "todo.apps.TodoConfig",
+    "users",
+    # 3rd party apps
     "bootstrap4",
     "crispy_bootstrap4",
     "crispy_forms",
+    "debug_toolbar",
     "django_bootstrap_icons",
+    # default apps
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -45,6 +54,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
