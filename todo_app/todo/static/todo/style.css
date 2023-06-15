@@ -1,0 +1,8 @@
+.hover-color :hover {
+    color: rgb(238, 130, 48) !important;
+    border-bottom: 1px solid rgb(238, 130, 48);
+}
+
+.cursor {
+    cursor: pointer;
+}

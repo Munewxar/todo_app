@@ -15,15 +15,20 @@
                     <div class="col-8">
                         <div class="pl-3">
                             {% if task.status|is_completed %}
-                                <span class="mr-1">{% bs_icon 'check-square' extra_classes="bi-valign-default" %}</span>
+                                <span class="mr-1 cursor">
+                                    {% bs_icon 'check-square' extra_classes="bi-valign-default" %}
+                                </span>
                                 <span class="text-muted">{{ task }}</span>
                             {% else %}
-                                <span class="mr-1">{% bs_icon 'square' extra_classes="bi-valign-default" %}</span>
+                                <span class="mr-1 cursor" onclick="location.href='{% url 'todo:complete_task' task.id %}'">
+                                    {% bs_icon 'square' extra_classes="bi-valign-default" %}
+                                </span>
                                 <span>{{ task }}</span>
                             {% endif %}
 
-                            <!-- mr 3 or 4 ??? -->
-                            <span class="mr-3 float-right">{% bs_icon 'trash' color='red' extra_classes="bi-valign-default" %}</span>
+                            <span class="mr-3 cursor float-right" onclick="location.href='{% url 'todo:delete_task' task.id %}'">
+                                {% bs_icon 'trash' color='red' extra_classes="bi-valign-default" %}
+                            </span>
                         </div>
                     </div>
                 </div>

@@ -11,11 +11,12 @@
     />
     <title>Todo</title>
     <link rel="stylesheet" href="{% static 'bootstrap_icons/css/bootstrap_icons.css' %}">
+    <link rel="stylesheet" href="{% static 'todo/style.css' %}">
     {% bootstrap_css %} {% bootstrap_javascript jquery='full' %}
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 border">
-      <a class="navbar-brand" href="{% url 'todo:index' %}">ToDo</a>
+      <a class="navbar-brand hover-color" href="{% url 'todo:index' %}">ToDo</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -30,7 +31,7 @@
 
       <div class="collapse navbar-collapse" id="navBarNav">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
+          <li class="nav-item ml-4 hover-color">
             <a class="nav-link" href="{% url 'todo:tasks' %}">Tasks</a>
           </li>
           <li class="nav-item">
@@ -39,7 +40,7 @@
               class="btn btn-outline-success my-2 my-sm-0 ml-3"
               role="button"
               aria-pressed="false"
-              >+ Create Task</a
+              >New</a
             >
           </li>
         </ul>
@@ -49,15 +50,15 @@
           <li class="nav-item">
             <span class="navbar-text mr-3">Hello, {{ user.username }}.</span>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"> Log out </a>
+          <li class="nav-item hover-color">
+            <a class="nav-link" href="{% url 'todo:logout' %}"> Log out </a>
           </li>
           {% else %}
-          <li class="nav-item">
-            <a class="nav-link" href="#"> Register </a>
+          <li class="nav-item hover-color">
+            <a class="nav-link" href="{% url 'todo:register' %}"> Register </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"> Log in </a>
+          <li class="nav-item hover-color">
+            <a class="nav-link" href="{% url 'todo:login' %}"> Log in </a>
           </li>
         </ul>
         {% endif %}

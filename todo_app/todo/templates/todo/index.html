@@ -3,7 +3,10 @@
 {% block content %}
 <div class="jumbotron">
   <h1>ToDo</h1>
-  <p class="lead">ToDo gives you focus, from work to play.</p>
-  <a class="btn btn-lg btn-primary" href="../../components/navbar/" role="button">Register</a>
+  <p class="lead">
+    ToDo app makes it easy and quick to create and manage tasks. <br>
+    Just write down your tasks for the week so you don't forget anything.
+  </p>
+  <a class="btn btn-lg btn-primary" href="{% url 'todo:register' %}" role="button">Register</a>
 </div>
 {% endblock content %}
