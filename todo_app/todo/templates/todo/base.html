@@ -30,6 +30,7 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navBarNav">
+        {% if user.is_authenticated %}
         <ul class="navbar-nav mr-auto">
           <li class="nav-item ml-4 hover-color">
             <a class="nav-link" href="{% url 'todo:tasks' %}">Tasks</a>
@@ -44,6 +45,7 @@
             >
           </li>
         </ul>
+        {% endif %}
 
         <ul class="navbar-nav ml-auto">
           {% if user.is_authenticated %}
