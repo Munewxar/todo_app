@@ -3,36 +3,44 @@
 {% load todo_extras %}
 
 {% block content %}
-    {% for day, tasks in tasks_by_day.items %}
-        <div class="row">
-            <div class="col-8">
-                <h5 class="bg-secondary p-2 mv-2 text-light">{{ day }}</h5>
-            </div>
-        </div>
-        <div class="mb-2">
-            {% for task in tasks %}
-                <div class="row p-1">
-                    <div class="col-8">
-                        <div class="pl-3">
-                            {% if task.status|is_completed %}
-                                <span class="mr-1 cursor">
-                                    {% bs_icon 'check-square' extra_classes="bi-valign-default" %}
-                                </span>
-                                <span class="text-muted">{{ task }}</span>
-                            {% else %}
-                                <span class="mr-1 cursor" onclick="location.href='{% url 'todo:complete_task' task.id %}'">
-                                    {% bs_icon 'square' extra_classes="bi-valign-default" %}
-                                </span>
-                                <span>{{ task }}</span>
-                            {% endif %}
+    {% if not tasks_by_day %}
+        <p>There are no tasks.</p>
 
-                            <span class="mr-3 cursor float-right" onclick="location.href='{% url 'todo:delete_task' task.id %}'">
-                                {% bs_icon 'trash' color='red' extra_classes="bi-valign-default" %}
-                            </span>
-                        </div>
+        {% else %}
+            {% for day, tasks in tasks_by_day.items %}
+                <div class="row">
+                    <div class="col-8">
+                        <h5 class="bg-secondary p-2 mv-2 text-light">{{ day }}</h5>
                     </div>
                 </div>
+                <div class="mb-2">
+                    {% for task in tasks %}
+                        <div class="row p-1">
+                            <div class="col-8">
+                                <div class="pl-3">
+                                    {% if task.status|is_completed %}
+                                        <span class="mr-1 cursor">
+                                            {% bs_icon 'check-square' extra_classes="bi-valign-default" %}
+                                        </span>
+                                        <span class="text-muted">{{ task }}</span>
+                                    {% else %}
+                                        <span class="mr-1 cursor" 
+                                              onclick="location.href='{% url 'todo:complete_task' task.id %}'">
+                                            {% bs_icon 'square' extra_classes="bi-valign-default" %}
+                                        </span>
+                                        <span>{{ task }}</span>
+                                    {% endif %}
+
+                                    <span class="mr-3 cursor float-right" 
+                                          onclick="location.href='{% url 'todo:delete_task' task.id %}'">
+                                        {% bs_icon 'trash' color='red' extra_classes="bi-valign-default" %}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
             {% endfor %}
-        </div>
-    {% endfor %}
+    {% endif %}
+    
 {% endblock content %}
