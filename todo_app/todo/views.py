@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 
 from .models import Task
 from .forms import TaskForm
@@ -11,6 +12,7 @@ def index(request):
 
 
 # TODO: refactor
+@login_required
 def tasks(request):
     tasks = Task.objects.filter(owner=request.user.id)
 
@@ -68,6 +70,7 @@ def tasks(request):
     return render(request, "todo/tasks.html", {"tasks_by_day": sorted_tasks_by_day})
 
 
+@login_required
 def new_task(request):
     if request.method != "POST":
         form = TaskForm()
@@ -86,6 +89,7 @@ def new_task(request):
     return render(request, "todo/new_task.html", context)
 
 
+@login_required
 def complete_task(request, task_id):
     print(f"called COMPLETE_TASK with task id: {task_id}")
 
@@ -96,6 +100,7 @@ def complete_task(request, task_id):
     return redirect("todo:tasks")
 
 
+@login_required
 def delete_task(request, task_id):
     print(f"called DELETE_TASK with task id: {task_id}")
 
