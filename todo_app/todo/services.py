@@ -14,12 +14,12 @@ def retrieve_tasks_sorted_by_day_for_user(user_id):
     return sorted_tasks_by_day
 
 
-def create_new_task(task_data, user_id):
+def create_new_task(task_data, user):
     form = TaskForm(task_data)
 
     if form.is_valid():
         new_task = form.save(commit=False)
-        new_task.owner = user_id
+        new_task.owner = user
         new_task.status = Task.NOT_COMPLETED
         new_task.save()
 
@@ -28,13 +28,13 @@ def create_new_task(task_data, user_id):
     return None
 
 
-def complete_task(task_id):
+def complete_task_by_id(task_id):
     task = _get_task_by_id(task_id)
     task.status = Task.COMPLETED
     task.save()
 
 
-def delete_task(task_id):
+def delete_task_by_id(task_id):
     task = _get_task_by_id(task_id)
     task.delete()
 
@@ -81,3 +81,24 @@ def _sort_tasks_by_day_based_on_current_day_of_the_week(tasks_by_day):
         counter += 1
 
     return sorted_tasks_by_day
+
+
+# tasks_by_day = {
+    #     "MONDAY" : [tasks[0], tasks[9]],
+    #     "TUESDAY" : [tasks[1], tasks[10]],
+    #     "WEDNESDAY": [tasks[2], tasks[11]],
+    #     "THURSDAY": [tasks[3]],
+    #     "FRIDAY": [tasks[4]],
+    #     "SATURDAY": [tasks[5], tasks[6]],
+    #     "SUNDAY": [tasks[7], tasks[8]]
+    # }
+
+    # tasks_by_day = {
+    #     # "MONDAY" : [tasks[0]],
+    #     # "TUESDAY" : [tasks[1]],
+    #     # "WEDNESDAY": [tasks[2]],
+    #     # "THURSDAY": [tasks[3]],
+    #     # "FRIDAY": [tasks[4]],
+    #     # "SATURDAY": [tasks[5]],
+    #     # "SUNDAY": [tasks[7]]
+    # }
