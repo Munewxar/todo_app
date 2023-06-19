@@ -4,70 +4,17 @@ from django.contrib.auth.decorators import login_required
 from .models import Task
 from .forms import TaskForm
 
-# import time
+import services
 
 
 def index(request):
     return render(request, "todo/index.html")
 
 
-# TODO: refactor
 @login_required
 def tasks(request):
-    tasks = Task.objects.filter(owner=request.user.id)
-
-    tasks_by_day = {}
-    # start = time.time()
-    for task in tasks:
-        print(task)
-        if task.day_of_the_week in tasks_by_day:
-            tasks_by_day[task.day_of_the_week].append(task)
-        else:
-            tasks_by_day[task.day_of_the_week] = []
-            tasks_by_day[task.day_of_the_week].append(task)
-
-    # end = time.time()
-    # print(end - start)
-
-
-    # tasks_by_day = {
-    #     "MONDAY" : [tasks[0], tasks[9]],
-    #     "TUESDAY" : [tasks[1], tasks[10]],
-    #     "WEDNESDAY": [tasks[2], tasks[11]],
-    #     "THURSDAY": [tasks[3]],
-    #     "FRIDAY": [tasks[4]],
-    #     "SATURDAY": [tasks[5], tasks[6]],
-    #     "SUNDAY": [tasks[7], tasks[8]]
-    # }
-
-    # tasks_by_day = {
-    #     # "MONDAY" : [tasks[0]],
-    #     # "TUESDAY" : [tasks[1]],
-    #     # "WEDNESDAY": [tasks[2]],
-    #     # "THURSDAY": [tasks[3]],
-    #     # "FRIDAY": [tasks[4]],
-    #     # "SATURDAY": [tasks[5]],
-    #     # "SUNDAY": [tasks[7]]
-    # }
-
-    days_of_the_week = Task.DAYS_OF_THE_WEEK
-    current_day_index = Task.current_day_index
-
-    sorted_tasks_by_day = {}
-    i = current_day_index
-    counter = 0
-    while counter < len(days_of_the_week):
-        if i == len(days_of_the_week):
-            i = 0
-
-        day = days_of_the_week[i]
-        if day in tasks_by_day.keys():
-            sorted_tasks_by_day[day] = tasks_by_day[day]
-
-        i += 1
-        counter += 1
-
-    return render(request, "todo/tasks.html", {"tasks_by_day": sorted_tasks_by_day})
+    tasks_by_day = services.retrieve_tasks_sorted_by_day_for_user(request.user.id)
+    return render(request, "todo/tasks.html", {"tasks_by_day": tasks_by_day})
 
 
 @login_required
@@ -75,14 +22,8 @@ def new_task(request):
     if request.method != "POST":
         form = TaskForm()
     else:
-        form = TaskForm(data=request.POST)
-
-        if form.is_valid():
-            new_task = form.save(commit=False)
-            new_task.owner = request.user
-            new_task.status = Task.NOT_COMPLETED
-            new_task.save()
-
+        new_task = services.create_new_task(request.POST, request.user.id)
+        if new_task:
             return redirect("todo:tasks")
         
     context = {"form" : form}
@@ -91,20 +32,11 @@ def new_task(request):
 
 @login_required
 def complete_task(request, task_id):
-    print(f"called COMPLETE_TASK with task id: {task_id}")
-
-    task = get_object_or_404(Task, id=task_id)
-    task.status = Task.COMPLETED
-    task.save()
-
+    services.complete_task(task_id)
     return redirect("todo:tasks")
 
 
 @login_required
 def delete_task(request, task_id):
-    print(f"called DELETE_TASK with task id: {task_id}")
-
-    task = get_object_or_404(Task, id=task_id)
-    task.delete()
-
+    services.delete_task(task_id)
     return redirect("todo:tasks")
