@@ -1,13 +1,15 @@
 {% extends 'todo/base.html' %}
-
-{% load crispy_forms_tags %}
+{% load bootstrap4 %}
 
 
 {% block content %}
-<form action="{% url 'todo:new_task' %}" method="post">
+<form method="post" action="{% url 'todo:new_task' %}" class="form">
   {% csrf_token %}
-  {{ form|crispy }}
+  {% bootstrap_form form %}
+  {% buttons %}
+  <button name="submit" class="btn btn-primary">Create Task</button>
+  {% endbuttons %}
 
-  <input type="submit" value="Create Task" />
+  <input type="hidden" name="next" value="{% url 'todo:tasks' %}" />
 </form>
 {% endblock content %}
