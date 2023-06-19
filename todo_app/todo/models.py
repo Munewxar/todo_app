@@ -4,7 +4,6 @@ from django.conf import settings
 from datetime import datetime
 
 
-# Create your models here.
 class Task(models.Model):
     MONDAY = "MONDAY"
     TUESDAY = "TUESDAY"

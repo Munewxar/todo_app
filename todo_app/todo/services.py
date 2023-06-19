@@ -14,7 +14,7 @@ def retrieve_tasks_sorted_by_day_for_user(user_id):
     return sorted_tasks_by_day
 
 
-def create_new_task(task_data, user):
+def create_new_task_based_on_form(task_data, user):
     form = TaskForm(task_data)
 
     if form.is_valid():
@@ -23,9 +23,7 @@ def create_new_task(task_data, user):
         new_task.status = Task.NOT_COMPLETED
         new_task.save()
 
-        return new_task
-    
-    return None
+    return form
 
 
 def complete_task_by_id(task_id):

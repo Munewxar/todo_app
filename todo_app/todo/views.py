@@ -6,7 +6,7 @@ from .forms import TaskForm
 
 from .services import (
     retrieve_tasks_sorted_by_day_for_user,
-    create_new_task,
+    create_new_task_based_on_form,
     complete_task_by_id,
     delete_task_by_id,
 )
@@ -27,8 +27,8 @@ def new_task(request):
     if request.method != "POST":
         form = TaskForm()
     else:
-        new_task = create_new_task(request.POST, request.user)
-        if new_task:
+        form = create_new_task_based_on_form(request.POST, request.user)
+        if form.is_valid():
             return redirect("todo:tasks")
 
     context = {"form": form}
