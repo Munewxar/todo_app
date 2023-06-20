@@ -40,8 +40,6 @@ INSTALLED_APPS = [
     "users",
     # 3rd party apps
     "bootstrap4",
-    "crispy_bootstrap4",
-    "crispy_forms",
     "debug_toolbar",
     "django_bootstrap_icons",
     # default apps
