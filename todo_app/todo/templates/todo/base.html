@@ -1,14 +1,17 @@
-{% load bootstrap4 %} 
+{% load bootstrap4 %}
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Todo</title>
-        <link rel="stylesheet" href="{% static 'bootstrap_icons/css/bootstrap_icons.css' %}">
+        <link rel="stylesheet"
+            href="{% static 'bootstrap_icons/css/bootstrap_icons.css' %}">
         <link rel="stylesheet" href="{% static 'todo/style.css' %}">
-        {% bootstrap_css %} 
+        {% bootstrap_css %}
         {% bootstrap_javascript jquery='full' %}
     </head>
     <body>
@@ -21,8 +24,7 @@
                 data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent"
                 aria-expanded="false"
-                aria-label="Toggle navigation"
-            >
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navBarNav">
@@ -36,8 +38,7 @@
                             href="{% url 'todo:new_task' %}"
                             class="btn btn-outline-success my-2 my-sm-0 ml-3"
                             role="button"
-                            aria-pressed="false"
-                        >
+                            aria-pressed="false">
                             New
                         </a>
                     </li>
@@ -46,17 +47,25 @@
                 <ul class="navbar-nav ml-auto">
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <span class="navbar-text mr-3">Hello, {{ user.username }}.</span>
+                        <span class="navbar-text mr-3">
+                            Hello, {{ user.username }}.
+                        </span>
                     </li>
                     <li class="nav-item hover-color">
-                        <a class="nav-link" href="{% url 'users:logout' %}"> Log out</a>
+                        <a class="nav-link" href="{% url 'users:logout' %}">
+                            Log out
+                        </a>
                     </li>
                     {% else %}
                     <li class="nav-item hover-color">
-                        <a class="nav-link" href="{% url 'users:register' %}"> Register</a>
+                        <a class="nav-link" href="{% url 'users:register' %}">
+                            Register
+                        </a>
                     </li>
                     <li class="nav-item hover-color">
-                        <a class="nav-link" href="{% url 'users:login' %}"> Log in</a>
+                        <a class="nav-link" href="{% url 'users:login' %}">
+                            Log in
+                        </a>
                     </li>
                     {% endif %}
                 </ul>
@@ -64,7 +73,7 @@
         </nav>
         <main role="main" class="container">
             <div>
-                {% block content %} 
+                {% block content %}
                 {% endblock content %}
             </div>
         </main>

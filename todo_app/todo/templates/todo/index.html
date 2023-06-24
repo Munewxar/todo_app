@@ -9,9 +9,11 @@
         Just write down your tasks for the week so you don't forget anything.
     </p>
     {% if user.is_authenticated %}
-    <a class="btn btn-lg btn-primary" href="{% url 'todo:tasks' %}" role="button">View tasks</a>
+    <a class="btn btn-lg btn-primary" href="{% url 'todo:tasks' %}"
+        role="button">View tasks</a>
     {% else %}
-    <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}" role="button">Register</a>
+    <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}"
+        role="button">Register</a>
     {% endif %}
 </div>
 {% endblock content %}

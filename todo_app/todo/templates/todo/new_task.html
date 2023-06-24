@@ -1,7 +1,6 @@
 {% extends 'todo/base.html' %}
 {% load bootstrap4 %}
 
-
 {% block content %}
 <form method="post" action="{% url 'todo:new_task' %}" class="form">
     {% csrf_token %}

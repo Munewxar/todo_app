@@ -24,12 +24,14 @@
                 </span>
                 <span class="text-muted">{{ task }}</span>
                 {% else %}
-                <span class="mr-1 cursor" onclick="location.href='{% url 'todo:complete_task' task.id %}'">
+                <span class="mr-1 cursor"
+                    onclick="location.href='{% url 'todo:complete_task' task.id %}'">
                     {% bs_icon 'square' extra_classes="bi-valign-default" %}
                 </span>
                 <span>{{ task }}</span>
                 {% endif %}
-                <span class="mr-3 cursor float-right" onclick="location.href='{% url 'todo:delete_task' task.id %}'">
+                <span class="mr-3 cursor float-right"
+                    onclick="location.href='{% url 'todo:delete_task' task.id %}'">
                     {% bs_icon 'trash' color='red' extra_classes="bi-valign-default" %}
                 </span>
             </div>
@@ -39,5 +41,5 @@
 </div>
 {% endfor %}
 {% endif %}
-    
+
 {% endblock content %}
