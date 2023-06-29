@@ -137,4 +137,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # Custom variables
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_URL = '/users/login/'
