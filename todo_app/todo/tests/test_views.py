@@ -3,8 +3,6 @@ from django.test import TestCase
 from todo.models import Task
 from todo.forms import TaskForm
 
-from django.contrib.auth.models import User
-
 from .test_data_generator import TestDataGenerator
 
 
