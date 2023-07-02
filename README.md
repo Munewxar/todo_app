@@ -49,6 +49,6 @@ $ python manage.py runserver
 ## Technologies
 
 ```
-**Python** - 3.11.2
-**Django** - 4.2
+Python - 3.11.2
+Django - 4.2
 ```
