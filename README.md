@@ -4,13 +4,10 @@
 
 ## Screenshots
 
-Home page:
 ![Home page](https://github.com/Munewxar/todo_app/blob/master/screenshots/index_page.png)
 
-Tasks page:
 ![Tasks page](https://github.com/Munewxar/todo_app/blob/master/screenshots/tasks_page.png)
 
-Task creation page:
 ![Task creation page](https://github.com/Munewxar/todo_app/blob/master/screenshots/new_task_page.png)
 
 ## Setup
